@@ -1,0 +1,25 @@
+version: '3.8'
+services:
+  database:
+    image: mongo
+    container_name: database
+    ports:
+      - 27017:27017
+  springboot:
+    image: springboot
+    container_name: back_end
+    ports:
+      - 8080:8080
+    depends_on: 
+      - database
+    links: 
+      - database
+  react:
+    image: react
+    container_name: "front_end"
+    ports: 
+      - "3000:3000"
+    depends_on: 
+      - springboot
+    links: 
+      - springboot
